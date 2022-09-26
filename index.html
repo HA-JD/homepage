@@ -8,6 +8,7 @@
 <head>
     <meta charset="utf-8">
     <title>HAJD</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/mdui/css/mdui.min.css">
     <link rel="stylesheet" href="/assets/css/main.css">
@@ -15,18 +16,91 @@
     <!-- <link rel="stylesheet" href="/assets/css/detaile.css"> -->
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1625701_q2422cy34wn.css">
     <link rel="icon" href="\assets\img\logo-circul-100.ico">
+    
 
 
 
 </head>
+<style>
+    
+</style>
 <body class="mdui-theme-primary-pink mdui-theme-accent-pink">
 <div id="rin-bg"></div>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    /* .content{ 
+        width: 100vw;
+        height: 100vh;
+        background: url(background2.png) center center no-repeat;
+        background-size: cover; */
+        /* background-color: yellowgreen;
+    } */
+    #rainBox{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        /* 不阻挡其他元素事件触发 */
+        pointer-events: none;
+    }
+    .rain{
+        position: absolute;
+        width: 2px;
+        height: 50px;
+        background: linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.6));
+
+    }
+
+</style>
+
+<body>
+    <div id="rainBox"></div>
+    <div class="content">
+        
+    </div>
+    <script>
+        const box=document.getElementById('rainBox');
+        let boxHeight=box.clientHeight;
+        let boxWidth=box.clientWidth;
+        // 页面大小发生变化时，改变盒子大小
+        window.onresize=function(){
+            boxHeight=box.clientHeight;
+            boxWidth=box.clientWidth;
+        }
+        // 每隔一段时间,添加雨滴
+       setInterval(()=>{
+        const rain=document.createElement('div');
+        rain.classList.add('rain');
+        rain.style.top=0;
+        // 随机刷新雨点位置
+        rain.style.left=Math.random()*boxWidth+'px';
+        // 随机雨点透明度
+        rain.style.opacity=Math.random();
+        box.appendChild(rain);
+        // 每隔一段时间,雨水下落
+        let race=1;
+        const timer=setInterval(()=>{
+            if(parseInt(rain.style.top)>boxHeight){
+                clearInterval(timer);
+                box.removeChild(rain);
+            }
+            race++;
+            rain.style.top=parseInt(rain.style.top)+race+'px'
+        },25)
+       },50)
+    </script>
+</body>
 <main id="rin-main">
     <div class="mdui-row">
         <div class="mdui-col-xs-12 mdui-col-md-2">
             <div class="rin-left">
                 <div class="rin-logo">
                     <img src="\assets\img\logo.jpg">
+
                 </div>
                 <div class="rin-left-title2"><b><i>HAJD</i></b></div>
                 <div class="rin-left-slogan"><b><em>「永夜孤行」</em></b></div>
@@ -196,7 +270,9 @@
         </div>
     </div>
 </main>
+<script src="https://player.lzti.com/api/player/166418384066" id="myhk" key="166418384066" m="1"></script>
 <script src="https://cdn.jsdelivr.net/gh/AyagawaSeirin/homepage@latest/mdui/js/mdui.min.js"></script>
+
 <!--<script src="/assets/js/main.js"></script>-->
 </body>
 </html>
